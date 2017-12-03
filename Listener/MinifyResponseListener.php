@@ -33,7 +33,11 @@ class MinifyResponseListener
         if($this->enableListener) {
             $response = $event->getResponse();
 
-            if ($response instanceof BinaryFileResponse || $response instanceof StreamedResponse) {
+            if (
+                $response instanceof BinaryFileResponse
+                || $response instanceof StreamedResponse
+                || (class_exists('\eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse') && $response instanceof \eZ\Bundle\EzPublishIOBundle\BinaryStreamResponse)
+            ) {
                 return;
             }
 
